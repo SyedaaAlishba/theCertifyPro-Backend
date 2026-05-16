@@ -92,7 +92,7 @@ app.use(passport.session());  // IMPORTANT - Add this line!
 app.use(cors({
   origin: [
     'https://luxury-cranachan-5824d1.netlify.app',
-    'https://certifypro-0lmb.onrender.com'
+    'https://thecertifypro-backend.onrender.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
