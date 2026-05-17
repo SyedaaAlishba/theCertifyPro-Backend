@@ -9,8 +9,6 @@ async function requireAuth(req, res, next) {
     }
 
     const token  = header.split(' ')[1];
-    const isProd = process.env.NODE_ENV === 'production';
-    const isDev  = !isProd;
 
     if (token === 'demo-token') {
       req.user = {
@@ -49,13 +47,15 @@ async function requireAuth(req, res, next) {
       logo_url:  user.logoUrl   || null,
       sig_url:   user.sigUrl    || null,
     };
-    next();
   } catch (err) {
     if (err.name === 'TokenExpiredError') {
       return res.status(401).json({ error: 'Token expired, please sign in again' });
     }
     return res.status(401).json({ error: 'Invalid token' });
   }
+  
+  // Call next outside the try-catch to prevent swallowing downstream route errors
+  next();
 }
 
 async function optionalAuth(req, res, next) {
@@ -79,14 +79,15 @@ async function optionalAuth(req, res, next) {
   next();
 }
 
-function requireAdmin(req, res, next) {
-  requireAuth(req, res, () => {
+const requireAdmin = [
+  requireAuth,
+  (req, res, next) => {
     if (req.user && req.user.role === 'admin') {
       next();
     } else {
       res.status(403).json({ error: 'Require Admin privilege' });
     }
-  });
-}
+  }
+];
 
 module.exports = { requireAuth, optionalAuth, requireAdmin };
