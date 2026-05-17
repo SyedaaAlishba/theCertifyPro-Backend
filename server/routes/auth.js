@@ -128,7 +128,7 @@ router.get('/google',
   })
 );
 
-const CLIENT_URL = process.env.CLIENT_URL || 'https://luxury-cranachan-5824d1.netlify.app';
+const CLIENT_URL = process.env.CLIENT_URL || 'https://the-certifypro.netlify.app';
 
 router.get('/google/callback',
   passport.authenticate('google', { 

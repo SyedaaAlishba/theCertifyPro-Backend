@@ -91,7 +91,7 @@ app.use(passport.session());  // IMPORTANT - Add this line!
 // CORS - Add production URLs
 app.use(cors({
   origin: [
-    'https://luxury-cranachan-5824d1.netlify.app',
+    'https://the-certifypro.netlify.app',
     'https://thecertifypro-backend.onrender.com'
   ],
   credentials: true,
